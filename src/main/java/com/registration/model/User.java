@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Table(name = "user")
 public class User {
 
-	//Test Commit
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
