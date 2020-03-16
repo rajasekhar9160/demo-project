@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style> 
+*{
+margin:0;
+padding:0;
+}
+span{
+	border: 1px solid #fff; display: inline-block; padding: 25px 40px;
+    border-radius: 50%; font-size: 35px;margin-left:auto;margin-right:auto;
+    background: #73C8A9;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #373B44, #73C8A9);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #373B44, #73C8A9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+   color:linen;font-weight:bold; 
+}
+.navbar-collapse{
+    z-index: 1;
+}
+.card{
+	border-radius:10px;
+	background: #EFEFBB;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #D4D3DD, #EFEFBB);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #D4D3DD, #EFEFBB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+#personal2{
+	display:none;
+}
+
+#education2{
+	display:none;
+}
+#skills2{
+	display:none;
+}
+/*
+#profile{
+	display:none;
+}*/
+  </style>
+</head>
+<body class="bg-light">
+
+
+<nav class="navbar navbar-expand-sm bg-info navbar-info" style="height:75px;">
+
+ <a class="navbar-brand" href="#">
+    <img src="../images/Caramellogo.png" width="210" height="50" alt="logo">
+  </a>
+ <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+ 
+    	  <i class="fa fa-bars" style="color:#fff; font-size:28px;"></i>
+   
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">  
+
+  <ul class="navbar-nav ml-auto">
+  
+  
+   
+    <li class="nav-item dropdown dropleft float-right">
+      <a class="nav-link dropbtn text-center" href="#"
+       data-toggle="dropdown"><b><i class="fa fa-user-circle-o" style="font-size:48px;color:#111;"></i></b></a>
+    
+	<div class="dropdown-menu p-5 mt-5">
+	 
+      <a th:text="${users.email}"></a>
+   <!--    <a class="dropdown-item mt-2" id="profile1" style="cursor:pointer;" onclick="profile()">Profile</a> -->
+	  
+	   
+      <a class="dropdown-item" href="#">Courses</a>
+      <a class="dropdown-item" href="/user/forgot-password">Account</a>
+      <a class="dropdown-item" href="#">Help</a>
+      <a class="dropdown-item" href="/lms/user/login">Logout</a>
+     </div>
+     </li>
+     </ul>
+     </div>
+</nav>
+<br/>
+<div class="container" id="profile">
+   <div class="row">
+   		<div class="col-md-2"></div>
+   		<div class="col-md-8">
+			<div class="card">
+	  			<div class="card-body">
+	  			  <div class="row">
+	  				<div class="col-md-3 text-center">
+						<span th:text="${users.firstName[0]}" class="text-capitalize"></span>
+					</div>
+					
+					<div class="col-md-9">
+					<div class="row">
+					  <div class="col-md-9">
+						<b><a class="text-capitalize" th:text="${'Welcome '+ ' ' +'&emsp;'+ users.firstName +'&nbsp;'+ users.lastName}"
+						style="font-size:22px;"
+						></a></b><br/>
+						<a th:text="${users.email}" style="font-size:18px;opacity:0.8;"></a><br/>
+						<a th:text="${users.mobile}" style="font-size:18px; opacity:0.8;"></a>
+					  </div>
+					  <div class="col-md-3">
+					  	<button type="button" data-toggle="modal" data-target="#myModal" ><img  th:src="*{users.photo}"style="width:100px;height:100px;">
+					  	</button>
+					  </div>
+		<form action="#" th:action="@{/user/save}" th:object="${users}"
+            method="post"> 
+		   <div class="modal" id="myModal">
+    			 <div class="modal-dialog">
+      						<div class="modal-content">
+      
+        					<!-- Modal Header -->
+        					<div class="modal-header">
+          						<h4 class="modal-title">Choose Your Photo</h4>
+          						<button type="button" class="close" data-dismiss="modal">&times;</button>
+        					</div>
+        
+        					<!-- Modal body -->
+        					<div class="modal-body">
+         						<input type="file" th:field="*{photo}">
+         						<div style="display:none;"><input type="text" th:field="*{email}">
+         						<input type="text" th:field="*{password}">
+         						<input type="text" th:field="*{firstName}">
+         						<input type="text" th:field="*{lastName}">
+         						<input type="text" th:field="*{state}">
+         						<input type="text" th:field="*{university}">
+         						<input type="text" th:field="*{country}">
+         					
+         						<input type="text" th:field="*{roll}">
+         						<input type="text" th:field="*{id}"></div>
+        					</div>
+        
+        					<!-- Modal footer -->
+        			<div class="modal-footer">
+        				<button type="submit" class="btn btn-success">upload</button>
+        			</div>
+        
+      				</div>
+    			</div>
+  			</div>
+		</form>		  
+					  
+					  
+					 </div>
+					</div>
+				  </div>
+	  			</div>
+	 		</div>
+		</div>
+		<div class="col-md-2"></div>
+  	</div>
+  	                                          <!--  welcome  closes -->
+  	<br/>
+  	
+  	<div class="row" >
+   		<div class="col-md-2"></div>
+   		<div class="col-md-8">
+			<div class="card" id="personal1">
+	  			<div class="card-body">
+	  			
+	  			  <h6 style="display:inline;"><b>Personal Details</b></h6>
+	  			   <a class="fa fa-edit float-right" style="font-size:20px;color:#111;cursor:pointer;" onclick="personal()"></a>
+	  			
+				<!-- <a th:href="@{'/user/edit/' + ${user.email}}" class="fa fa-edit float-right" style="font-size:20px;color:#111;cursor:pointer;
+				 text-decoration:none;"></a> -->
+				 
+	  			  <div class="row mt-2">
+	  			  	<div class="col-md-3">
+	  			  		<label>First Name</label>
+	  			  	</div>
+	  			  	<div class="col-md-9">
+	  			  		<label th:text="${users.firstName}"></label>
+	  			  	</div>
+	  			  </div>
+	  			  
+	  			  <div class="row">
+	  			  	<div class="col-md-3">
+	  			  		<label>Last Name</label>
+	  			  	</div>
+	  			  	<div class="col-md-9">
+	  			  		<label th:text="${users.lastName}"></label>
+	  			  	</div>
+	  			  </div>
+	  			  
+	  			   <div class="row">
+	  			  	<div class="col-md-3">
+	  			  		<label>Email Adress</label>
+	  			  	</div>
+	  			  	<div class="col-md-9">
+	  			  		<label th:text="${users.email}"></label>
+	  			  	</div>
+	  			  </div>
+	  			  
+	  			   <div class="row">
+	  			  	<div class="col-md-3">
+	  			  		<label>Mobile Number</label>
+	  			  	</div>
+	  			  	<div class="col-md-9">
+	  			  		<label th:text="${users.mobile}"></label>
+	  			  	</div>
+	  			  </div>
+	  			  
+	  			   <div class="row">
+	  			  	<div class="col-md-3">
+	  			  		<label>D.O.B [yyyy/mm/dd]</label>
+	  			  	</div>
+	  			  	<div class="col-md-9">
+	  			  		<label th:text="${users.dob}"></label>
+	  			  	</div>
+	  			  </div>
+	  			 
+	  			   <div class="row">
+	  			  	<div class="col-md-3">
+	  			  		<label>State</label>
+	  			  	</div>
+	  			  	<div class="col-md-9">
+	  			  		<label th:text="${users.state}"></label>
+	  			  	</div>
+	  			  </div>
+	  			  
+	  			</div>
+	 		</div>
+	 						<!-- card-1 closes -->
+	 <div class="card" id="personal2">
+	 			<div class="card-body">
+	 				<div align="center">
+    
+        <form action="#" th:action="@{/user/save}" th:object="${users}"
+            method="post">
+ 			
+ 			<button onclick="percancel()" class="btn btn-danger float-right fa fa-close"></button><br/><br/>
+ 			
+ 			<div class="row">
+ 				<div class="col-md-1"></div>
+ 					<div class="col-md-10">
+ 						<div class="row form-group">
+ 						
+ 							<div class="col-md-4">
+ 								<label>ID <i style="color:red;">*</i></label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{id}" readonly="readonly" required/>
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>First Name <i style="color:red;">*</i></label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{firstName}" required/>
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>Last Name <i style="color:red;">*</i></label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{lastName}" required/>
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>Email <i style="color:red;">*</i></label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{email}" readonly="readonly" required/>
+ 							</div>
+ 						</div>
+ 						<div class="row form-group" style="display:none;">
+ 							<div class="col-md-4">
+ 								<label>Password</label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{password}"/>
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>Mobile <i style="color:red;">*</i></label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{mobile}" required/>
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>D.O.B <i style="color:red;">*</i></label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="date" class="form-control" th:field="*{dob}" required/>
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>State <i style="color:red;">*</i></label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{state}" required/>
+ 							</div>
+ 						</div>
+ 						
+ 				<div class="row">
+ 					<div class="col-md-12 text-center">
+ 						<button type="submit" class="btn btn-success px-3">Save</button><br/>
+ 					</div>
+ 				</div>
+ 					</div>
+ 				<div class="col-md-1"></div>
+ 				
+ 				
+ 			</div>
+ 			
+ 			</form>	
+ 		
+  			</div>  	
+		</div>
+	</div>
+	                               <!-- card-2 closes -->
+	</div>
+	<div class="col-md-2"></div>
+	</div><br/>
+	                                    <!-- row closes closes -->
+	  <div class="row">
+   		<div class="col-md-2"></div>
+   		<div class="col-md-8">
+			<div class="card" id="education1">
+	  			<div class="card-body">
+	  			
+	  			 <h6 style="display:inline;"><b>Education Details</b></h6>
+	  			  <a class="fa fa-edit float-right" style="font-size:20px;color:#111;cursor:pointer;" onclick="education()"></a>
+	  				
+	  				<div class="row mt-2">
+	  			  		<div class="col-md-3">
+	  			  			<label>Highest Qualification</label>
+	  			  		</div>
+	  			  		<div class="col-md-9">
+	  			  			<label th:text="${users.qualification}"></label>
+	  			  		</div>
+				  	</div>
+				  	
+	  			  	<div class="row">
+	  			  		<div class="col-md-3">
+	  			  			<label>College Name</label>
+	  			  		</div>
+	  			  		<div class="col-md-9">
+	  			  			<label th:text="${users.college}"></label>
+	  			  		</div>
+				  	</div>
+				  	
+				  	<div class="row">
+	  			  		<div class="col-md-3">
+	  			  			<label>University Name</label>
+	  			  		</div>
+	  			  		<div class="col-md-9">
+	  			  			<label th:text="${users.university}"></label>
+	  			  		</div>
+				  	</div>
+				  	
+				  	<div class="row">
+	  			  		<div class="col-md-3">
+	  			  			<label>Roll No</label>
+	  			  		</div>
+	  			  		<div class="col-md-9">
+	  			  			<label th:text="${users.roll}"></label>
+	  			  		</div>
+				  	</div>
+				  	
+				  	<div class="row">
+	  			  		<div class="col-md-3">
+	  			  			<label>Specialisation</label>
+	  			  		</div>
+	  			  		<div class="col-md-9">
+	  			  			<label th:text="${users.specialisation}"></label>
+	  			  		</div>
+				  	</div>
+				  	
+				  	<div class="row">
+	  			  		<div class="col-md-3">
+	  			  			<label>State</label>
+	  			  		</div>
+	  			  		<div class="col-md-9">
+	  			  			<label th:text="${users.cstate}"></label>
+	  			  		</div>
+				  	</div>
+				  	
+	  			</div>
+	 		</div>
+	 		               <!-- row-2  card-1 closes -->
+	
+
+  	 <div class="card" id="education2">
+	 			<div class="card-body">
+	 				<div align="center">
+    
+        <form action="#" th:action="@{/user/save}" th:object="${users}"
+            method="post">
+ 			
+ 			<button onclick="educancel()" class="btn btn-danger float-right fa fa-close"></button><br/><br/>
+ 			
+ 			<div class="row">
+ 				<div class="col-md-1"></div>
+ 					<div class="col-md-10">
+ 						<div class="row form-group" style="display:none;">
+ 						
+ 							<div class="col-md-4">
+ 								<label>ID</label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{id}" readonly="readonly" />
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>Highest Qualification <i style="color:red;">*</i></label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{qualification}" required/>
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>College Name <i style="color:red;">*</i></label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{college}" required/>
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>University Name <i style="color:red;">*</i></label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{university}" required/>
+ 							</div>
+ 						</div>
+ 						
+ 						
+ 						<div style="display:none;">
+ 						
+ 						<div class="row form-group">
+ 						
+ 							<div class="col-md-4">
+ 								<label>ID</label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{id}" readonly="readonly" />
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>First Name</label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{firstName}" />
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>Last Name</label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{lastName}"/>
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>Email</label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{email}" readonly="readonly" />
+ 							</div>
+ 						</div>
+ 						<div class="row form-group" style="display:none;">
+ 							<div class="col-md-4">
+ 								<label>Password</label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{password}"/>
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>Mobile</label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{mobile}"/>
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>D.O.B</label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="date" class="form-control" th:field="*{dob}"/>
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>State</label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{state}"/>
+ 							</div>
+ 						</div>
+ 					</div>	
+ 						
+ 						
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>Roll No <i style="color:red;">*</i></label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{roll}" required/>
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>Specialisation <i style="color:red;">*</i></label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{specialisation}" required/>
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>State <i style="color:red;">*</i></label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{cstate}" required/>
+ 							</div>
+ 						</div>
+ 					
+ 						
+ 				<div class="row">
+ 					<div class="col-md-12 text-center">
+ 						<button type="submit" class="btn btn-success px-3">Save</button><br/>
+ 					</div>
+ 				</div>
+ 					</div>
+ 				<div class="col-md-1"></div>
+ 				
+ 				
+ 			</div>
+ 			
+ 			</form>	
+ 		
+  			</div>  	
+		</div>
+		
+	</div>
+	    <!-- row-2 card-2 closes -->
+</div>
+	<div class="col-md-2"></div>
+  </div>
+         <!-- 2nd row closes -->
+  	<br/>
+  	    <div class="row">
+   		<div class="col-md-2"></div>
+   		<div class="col-md-8">
+			<div class="card" id="skills1">
+	  			<div class="card-body">
+	  			
+	  			 <h6 style="display:inline;"><b>Skills</b></h6>
+	  			  <a class="fa fa-edit float-right" style="font-size:20px;color:#111;cursor:pointer;" onclick="skills()"></a>
+	  			
+	  				<div class="row mt-2">
+	  			  		<div class="col-md-3">
+	  			  			<label>Top Skills</label>
+	  			  		</div>
+	  			  		<div class="col-md-9">
+	  			  			<label th:text="${users.skill}"></label>
+	  			  		</div>
+				  	</div>
+				  	
+	  							  </div>	
+	  			</div>
+	 	
+	 		               <!-- row-3  card-1 closes -->
+	
+
+  	 <div class="card" id="skills2">
+	 			<div class="card-body">
+	 				<div align="center">
+    
+        <form action="#" th:action="@{/user/save}" th:object="${users}"
+            method="post">
+ 			
+ 			<button onclick="skillcancel()" class="btn btn-danger float-right fa fa-close"></button><br/><br/>
+ 			
+ 			<div class="row">
+ 				<div class="col-md-1"></div>
+ 					<div class="col-md-10">
+ 					<div style="display:none;">
+ 						<div class="row form-group">
+ 						
+ 							<div class="col-md-4">
+ 								<label>ID</label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{id}" readonly="readonly" />
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>Highest Qualification</label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{qualification}" />
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>College Name</label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{college}"/>
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>University Name</label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{university}"/>
+ 							</div>
+ 						</div>
+ 						
+ 						
+ 						
+ 						
+ 						<div class="row form-group">
+ 						
+ 							<div class="col-md-4">
+ 								<label>ID</label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{id}" readonly="readonly" />
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>First Name</label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{firstName}" />
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>Last Name</label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{lastName}"/>
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>Email</label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{email}" readonly="readonly" />
+ 							</div>
+ 						</div>
+ 						<div class="row form-group" style="display:none;">
+ 							<div class="col-md-4">
+ 								<label>Password</label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{password}"/>
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>Mobile</label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{mobile}"/>
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>D.O.B</label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{dob}"/>
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>State</label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{state}"/>
+ 							</div>
+ 						</div>
+ 					
+ 						
+ 						
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>Roll No</label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{roll}"/>
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>Specialisation</label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{specialisation}"/>
+ 							</div>
+ 						</div>
+ 						<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>State</label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{cstate}"/>
+ 							</div>
+ 						</div>
+ 					</div>	
+ 					<div class="row form-group">
+ 							<div class="col-md-4">
+ 								<label>Skills<i style="color:red;">*</i></label>
+ 							</div>
+ 							<div class="col-md-8">
+ 								<input type="text" class="form-control" th:field="*{skill}" required/>
+ 							</div>
+ 					</div>
+ 					
+ 					
+ 						
+ 				<div class="row">
+ 					<div class="col-md-12 text-center">
+ 						<button type="submit" class="btn btn-success px-3">Save</button><br/>
+ 					</div>
+ 				</div>
+ 			</div>
+ 				<div class="col-md-1"></div>
+ 				
+ 				
+ 		</div>
+ 			
+ 			</form>	
+ 		
+  			</div>  	
+		</div>
+		
+	</div><!-- Row 3 Card 2 closes -->
+   </div>		
+   <div class="col-md-2"></div>				
+
+</div>
+		<!-- Third row closes -->
+<br/><br/>
+</div> 
+	<!-- COntainer closes -->
+	
+<script type="text/javascript">
+	function personal(){
+		document.getElementById("personal2").style.display="block";
+		document.getElementById("personal1").style.display="none";
+		
+	}
+	function education(){
+		document.getElementById("education2").style.display="block";
+		document.getElementById("education1").style.display="none";
+		
+	}
+	function skills(){
+		document.getElementById("skills2").style.display = "block";
+		document.getElementById("skills1").style.display = "none";
+	}
+	
+	function skillcancel(){
+		document.getElementById("skills2").style.display="none";
+		document.getElementById("skills1").style.display="block";
+	}
+	
+	function educancel(){
+		document.getElementById("education2").style.display="none";
+		document.getElementById("education1").style.display="block";
+	}
+	
+	
+	function percancel(){
+		document.getElementById("personal2").style.display="none";
+		document.getElementById("personal1").style.display="block";
+	}
+	
+	/*function profile(){
+		document.getElementById("profile").style.display="block";
+	}*/
+</script>
+
+
+     </body>
+     </html>

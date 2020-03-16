@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style> 
+
+.card{
+	padding:20px;
+	background-color:#111;
+	color:lavender;	
+	opacity:0.8;
+}
+.row a .card:hover{
+	
+	color:black;
+}
+.row a:hover{
+	text-decoration:none;
+}
+nav ul a{
+	color:lavender;
+}
+nav ul a:hover{
+	color:black;
+}
+
+
+
+
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #17A2B7;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+
+
+
+
+
+
+  </style>
+</head>
+<body class="bg-light">
+	
+<nav class="navbar navbar-expand-sm bg-info navbar-info">
+  <!-- Brand/logo -->
+  <a class="navbar-brand" href="#">
+    <img src="images/Caramellogo.png" alt="logo" style="width:240px; height:65px; margin:0px 0px 0px 0px;">
+  </a>
+ <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon">
+    	  <i class="fa fa-bars" style="color:#fff; font-size:28px;"></i>
+    </span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">  
+  <!-- Links -->
+  <ul class="navbar-nav ml-auto">
+  
+  
+    <li class="nav-item">
+      <a class="nav-link"  href="#"style="font-size:25px;margin-left:40px;" ><b>Home</b></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/contact/form" style="font-size:25px;margin-left:40px;"><b>Contact Us</b></a>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropbtn" href="#" style="font-size:25px;margin-left:40px;"><b>Login / Sign Up</b></a>
+      <div class="dropdown-content">
+    <a href="/lms/user/login">Student</a>
+    <a href="/lms/instructor/instructor_login">Instructor</a>
+    <a href="/lms/college/college_login">College / University</a>
+    <a href="/lms/organisation/organisation_login">Organisation / Corporate</a>
+    <a href="/lms/admin/admin_login">Others</a>
+  </div>
+    </li>
+
+  </ul>
+  </div>
+</nav>
+<br/><br/><br/>
+<div class="container" align="center">
+	<div class="row">
+	   
+		 <div class="col-md-8 text-center">
+  			
+  			<div class="dropdown" th:each = "course : ${listCourses}">
+  				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" th:text="${course.courseName}">
+    			
+  				</button>
+  				<div class="dropdown-menu">
+    				<a class="dropdown-item" th:text="${course.courseContent1}"></a>
+    				<a class="dropdown-item" href="#">Link 2</a>
+    				<a class="dropdown-item" href="#">Link 3</a>
+  				</div>
+			</div>   				
+		  </div><br/>
+		
+  	</div>
+</div>
+	
+</body>
+</html>

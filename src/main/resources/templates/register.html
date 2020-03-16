@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="" />
+<meta name="author" content="" />
+<link rel="icon" href="favicon.ico" />
+
+<title>Registration </title>
+
+<!-- Bootstrap core CSS -->
+<link
+  href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+  crossorigin="anonymous" />
+
+	<link th:href="@{../css/style.css}" rel="stylesheet" />
+	<style>
+		.stureg{
+			height:40px;
+		}
+		.stugl{
+		
+		width:30px;
+		height:26px;
+		font-size:20px;
+		}
+		.stucheck{
+			width:20px;
+			height:20px;
+			color:blue;
+		}
+	</style>
+</head>
+
+<body class="light-bg">
+<!--  -->
+<nav class="navbar navbar-expand-sm">
+  <!-- Brand/logo -->
+  <a class="navbar-brand" href="/lms">
+    <img src="../images/Caramel-Horz.png" alt="logo" style="width:240px; height:65px; margin:0px 0px 0px 0px;">
+  </a>
+</nav>
+  <!-- <div class="middle-box text-center loginscreen animated fadeInDown">
+    <div> -->
+      
+  <br><br>
+  <div class="container" style="margin-top:-40px;">
+	<div class="row">
+	<div class="col-md-3"></div>
+	<div class="col-md-6">
+      <h2 align=center style="color:#111;"><b>New Student Registration</b></h2><br>
+
+      <form autocomplete="off" action="#" th:action="@{/user/register}"
+        th:object="${user}" method="post" class="m-t" role="form"
+        data-toggle="validator">
+
+		
+        <div th:if="${confirmationMessage}" class="alert alert-success"
+          role="alert" th:text=${confirmationMessage}></div>
+
+        <div th:if="${alreadyRegisteredMessage}"
+          class="alert alert-danger" role="alert"
+          th:text="${alreadyRegisteredMessage}"></div>
+
+
+        <div th:if="${#fields.hasErrors('firstName')}"
+          th:errors="*{firstName}"
+          class="validation-message alert alert-danger" role="alert"></div>
+
+        <div th:if="${#fields.hasErrors('lastName')}"
+          th:errors="*{lastName}"
+          class="validation-message alert alert-danger" role="alert"></div>
+
+
+        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+          class="validation-message alert alert-danger" role="alert"></div>
+          
+		
+        <div th:if="${#fields.hasErrors('mobile')}" th:errors="*{mobile}"
+          class="validation-message alert alert-danger" role="alert"></div>
+		
+		
+        <div th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}"
+          class="validation-message alert alert-danger" role="alert"></div>
+        
+        <div th:if="${#fields.hasErrors('state')}" th:errors="*{state}"
+          class="validation-message alert alert-danger" role="alert"></div>
+          
+        <div th:if="${#fields.hasErrors('college')}" th:errors="*{college}"
+          class="validation-message alert alert-danger" role="alert"></div>
+       	
+       	 <div th:if="${#fields.hasErrors('photo')}" th:errors="*{photo}"
+          class="validation-message alert alert-danger" role="alert"></div>
+       
+       	
+        <div th:if="${#fields.hasErrors('skill')}" th:errors="*{skill}"
+          class="validation-message alert alert-danger" role="alert"></div>
+       
+       
+       <!--  <div th:if="${#fields.hasErrors('technology')}" th:errors="*{technology}"
+          class="validation-message alert alert-danger" role="alert"></div> -->
+          
+        <div th:if="${#fields.hasErrors('password')}"
+          th:errors="*{password}"
+          class="validation-message alert alert-danger" role="alert"></div>
+	<div class="row">
+	 <div class="col-md-6">
+        <div class="form-group input-group has-feedback ">
+          <label th:if="${#fields.hasErrors('firstName')}"
+            th:errors="*{firstName}" class="validation-message"></label>
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-user stugl"></span>
+          </span>
+          
+          <input type="text" th:field="*{firstName}" 
+            placeholder="First Name...." class="form-control stureg" required />
+          <span class="glyphicon form-control-feedback"
+            aria-hidden="true"></span>
+        </div>
+	</div>
+	<div class="col-md-6">
+        <div class="form-group input-group has-feedback">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-user stugl"></span>
+          </span>
+          <input type="text" th:field="*{lastName}"
+            placeholder="Last Name...." class="form-control stureg" required />
+          <span class="glyphicon form-control-feedback"
+            aria-hidden="true"></span>
+        </div>
+	</div> 
+	</div>
+        <div class="form-group input-group has-feedback">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-envelope stugl"></span>
+          </span>
+          <input type="email" th:field="*{email}" 
+            placeholder="Email Address...." class="form-control stureg"
+            data-error="This email address is invalid" required />
+          <span class="glyphicon form-control-feedback"
+            aria-hidden="true"></span>
+        </div>
+        <div class="form-group input-group has-feedback">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-earphone stugl"></span>
+          </span>
+          <input type="number" th:field="*{mobile}" 
+            placeholder="Your Mobile Number...." class="form-control stureg" 
+            data-error="This Mobile Number is invalid" required />
+          <span class="glyphicon form-control-feedback"
+            aria-hidden="true"></span>
+        </div>
+        <div class="form-group input-group has-feedback">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-list-alt stugl"></span>
+          </span>
+          <input type="date" th:field="*{dob}"
+             class="form-control stureg"
+            data-error="Date Of Birth is invalid" required />
+          <span class="glyphicon form-control-feedback"
+            aria-hidden="true"></span>
+        </div>
+        
+       <div class="form-group input-group has-feedback">
+      		<span class="input-group-addon">
+            <span class="glyphicon glyphicon-flag stugl"></span>
+          </span>
+      		<select class="form-control stureg" th:field="*{country}" required>
+       			<option value="" >- - - Select Your Country - - -</option>
+        		<option value="Australia">Australia</option>
+        		<option value="India">India</option>
+        		<option value="UK">UK</option>
+        		<option value="USA">USA</option>
+        		<option value="others">Others</option>
+      		</select>
+      		<span class="glyphicon form-control-feedback"
+            aria-hidden="true"></span>
+    	</div>
+		
+		<div class="form-group input-group has-feedback">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-home stugl"></span>
+          </span>
+          <input type="text" th:field="*{state}"
+             class="form-control stureg" placeholder="Enter Your State..."
+            data-error="State is invalid" required />
+          <span class="glyphicon form-control-feedback"
+            aria-hidden="true"></span>
+        </div>
+        
+        <div class="form-group input-group has-feedback">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-education stugl"></span>
+          </span>
+          <input type="text" th:field="*{college}"
+             class="form-control stureg" placeholder="Your College/University Name..."
+            data-error="College is invalid" required />
+          <span class="glyphicon form-control-feedback"
+            aria-hidden="true"></span>
+        </div>       
+        
+        <div class="form-group input-group has-feedback">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-tasks stugl"></span>
+          </span>
+          <input type="text" th:field="*{skill}"
+             class="form-control stureg" placeholder="Skill Set if you have any... EX: C, C++,java"
+            data-error="Skill Set is invalid" required />
+          <span class="glyphicon form-control-feedback"
+            aria-hidden="true"></span>
+        </div>
+     	<!-- <label style="color:#111;">Technologies You Are Intrested In</label><br>
+     	
+     	<div class="row">
+                  
+          <div class="col-md-3" th:each="user : ${technologies}">
+            <input type="checkbox" th:field="*{technology}" th:value="${user.id}" class="stucheck"
+              required />&ensp;<label style="color:#111;">C/C++</label></input>
+  
+          </div>-->
+           <!--         
+          <div class="col-md-3">
+            <input type="checkbox" th:checked="*{technology}" value="Java" class="stucheck"
+              required />&ensp;<label style="color:#111;">Java</label></input>
+            <br/>
+                <input type="checkbox" th:checked="*{technology}" value="DevOps" class="stucheck"
+              required />&ensp;<label style="color:#111;">DevOps</label> </input>
+          </div>
+          
+          <div class="col-md-3">
+            <input type="checkbox" th:checked="*{technology}" value="Python" class="stucheck"
+              required />&ensp;<label style="color:#111;">Python</label></input>
+            <br/>
+                <input type="checkbox" th:checked="*{technology}" value="Salesforce" class="stucheck"
+              required />&ensp;<label style="color:#111;">Salesforce</label> </input>
+          </div>
+          
+          <div class="col-md-3">
+            <input type="checkbox" th:checked="*{technology}" value="C/C++" class="stucheck"
+              required />&ensp;<label style="color:#111;">Database</label></input>
+            <br/>
+                <input type="checkbox" th:checked="*{technology}" value="Digital Marketing" class="stucheck"
+              required />&ensp;<label style="color:#111;">Marketing</label> </input>
+          </div>
+         </div>  -->
+          <br>
+        
+        <button type="submit"
+          class="btn btn-primary full-width m-b">Register</button>
+		<br>
+		<h3><a href="/lms/user/login" style="color:#111;">Already Registered? Please Login</a></h3><br><br>
+      </form>
+      </div>
+      <div class="col-md-3"></div>
+     </div>
+    </div>
+       <p class="m-t">
+      
+      </p>
+    </div>
+  </div>
+
+
+  <!-- jQuery-->
+  <script
+    src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+  <!-- Bootstrap -->
+  <script
+    src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+
+  <!-- Bootstrap Validator plugin -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+
+ 
+</body>
+
+</html>

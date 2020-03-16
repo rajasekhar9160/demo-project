@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style> 
+*{
+margin:0;
+padding:0;
+}
+span{
+	border: 1px solid #fff; display: inline-block; padding: 25px 40px;
+    border-radius: 50%; font-size: 35px;margin-left:auto;margin-right:auto;
+    background: #73C8A9;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #373B44, #73C8A9);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #373B44, #73C8A9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+   color:linen;font-weight:bold; 
+}
+.navbar-collapse{
+    z-index: 1;
+}
+.card{
+	border-radius:10px;
+	background: #EFEFBB;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #D4D3DD, #EFEFBB);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #D4D3DD, #EFEFBB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+#personal2{
+	display:none;
+}
+
+  </style>
+</head>
+<body class="bg-light">
+
+
+<nav class="navbar navbar-expand-sm bg-info navbar-info" style="height:75px;">
+
+ <a class="navbar-brand" href="#">
+    <img src="../images/Caramellogo.png" width="210" height="50" alt="logo">
+  </a>
+ <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+ 
+    	  <i class="fa fa-bars" style="color:#fff; font-size:28px;"></i>
+   
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">  
+
+  <ul class="navbar-nav ml-auto">
+  
+  
+   
+    <li class="nav-item dropdown dropleft float-right">
+      <a class="nav-link dropbtn text-center" href="#"
+       data-toggle="dropdown"><b><i class="fa fa-user-circle-o" style="font-size:48px;color:#111;"></i></b></a>
+    
+	<div class="dropdown-menu p-5 mt-5">
+	 
+      <a th:text="${users.email}"></a>
+      <a class="dropdown-item mt-2" href="#">Profile</a>
+      <a class="dropdown-item" href="#">Courses</a>
+      <a class="dropdown-item" href="#">Account</a>
+      <a class="dropdown-item" href="#">Help</a>
+      <a class="dropdown-item" href="/lms/user/login">Logout</a>
+     </div>
+     </li>
+     </ul>
+     </div>
+</nav>
+<br/>
+<div class="container">
+   <div class="row">
+   		<div class="col-md-2"></div>
+   		<div class="col-md-8">
+			<div class="card">
+	  			<div class="card-body">
+	  			  <div class="row">
+	  				<div class="col-md-3 text-center">
+						<span th:text="${users.firstName[0]}" class="text-capitalize"></span>
+					</div>
+					<div class="co-md-1"></div>
+					<div class="col-md-8">
+						<b><a class="text-capitalize" th:text="${'Welcome '+ ' ' +'&emsp;'+ users.firstName +'&nbsp;'+ users.lastName}"
+						style="font-size:22px;"
+						></a></b><br/>
+						<a th:text="${users.email}" style="font-size:18px;opacity:0.8;"></a><br/>
+						<a th:text="${users.mobile}" style="font-size:18px; opacity:0.8;"></a>
+					</div>
+				  </div>
+	  			</div>
+	 		</div>
+		</div>
+		<div class="col-md-2"></div>
+  	</div>
+  	<br/>
+  	
+  	<div class="row" >
+   		<div class="col-md-2"></div>
+   		<div class="col-md-8">
+			<div class="card" id="personal1">
+	  			<div class="card-body">
+	  			
+	  			  <h6 style="display:inline;"><b>Personal Details</b></h6>
+	  			   <a class="fa fa-edit float-right" style="font-size:20px;color:#111;cursor:pointer;" onclick="personal()"></a> 
+	  		<!-- 	<a class="float-right" href="/profile/new_profile">Edit</a> -->
+	  			  <div class="row mt-2">
+	  			  	<div class="col-md-3">
+	  			  		<label>First Name</label>
+	  			  	</div>
+	  			  	<div class="col-md-9">
+	  			  		<label th:text="${users.firstName}"></label>
+	  			  	</div>
+	  			  </div>
+	  			  
+	  			  <div class="row">
+	  			  	<div class="col-md-3">
+	  			  		<label>Last Name</label>
+	  			  	</div>
+	  			  	<div class="col-md-9">
+	  			  		<label th:text="${users.lastName}"></label>
+	  			  	</div>
+	  			  </div>
+	  			  
+	  			   <div class="row">
+	  			  	<div class="col-md-3">
+	  			  		<label>Email Adress</label>
+	  			  	</div>
+	  			  	<div class="col-md-9">
+	  			  		<label th:text="${users.email}"></label>
+	  			  	</div>
+	  			  </div>
+	  			  
+	  			   <div class="row">
+	  			  	<div class="col-md-3">
+	  			  		<label>Mobile Number</label>
+	  			  	</div>
+	  			  	<div class="col-md-9">
+	  			  		<label th:text="${users.mobile}"></label>
+	  			  	</div>
+	  			  </div>
+	  			  
+	  			   <div class="row">
+	  			  	<div class="col-md-3">
+	  			  		<label>D.O.B</label>
+	  			  	</div>
+	  			  	<div class="col-md-9">
+	  			  		<label th:text="${users.dob}"></label>
+	  			  	</div>
+	  			  </div>
+	  			 
+	  			   <div class="row">
+	  			  	<div class="col-md-3">
+	  			  		<label>State</label>
+	  			  	</div>
+	  			  	<div class="col-md-9">
+	  			  		<label th:text="${users.state}"></label>
+	  			  	</div>
+	  			  </div>
+	  			  
+	  			</div>
+	 		</div>
+	 	
+	 		<div class="card" id="personal2">
+	 			<div class="card-body">
+	 				<form th:action="@{/user/save}" method="post" th:object="${user}">
+	 					<div class="row form-group">
+	 						<div class="col-md-3">
+	 							<label>First Name</label>
+	 						</div>
+	 						
+	 						<div class="col-md-9">
+	 							<input type="text" class="form-control" th:value="${users.firstName}" id="firstName" name = "firstName">
+	 						</div>
+	 					</div>
+	 					
+	 					<div class="row">
+							<div class="col-md-12 text-center">
+								<button type="submit" class="btn btn-success">save</button>&emsp;
+					</form>		
+							</div>	 					
+	 					</div>
+	 				
+	 				<button onclick="percancel()" class="btn btn-danger float-right">cancel</button><br/>
+	 			</div>
+	 		</div>
+		</div>
+		<div class="col-md-2"></div>
+  	</div><br/>
+  	
+  	   <div class="row">
+   		<div class="col-md-2"></div>
+   		<div class="col-md-8">
+			<div class="card">
+	  			<div class="card-body">
+	  			
+	  			 <h6 style="display:inline;"><b>College Details</b></h6>
+	  			  <a class="fa fa-edit float-right"  style="font-size:20px;color:#111;"></a>
+	  			
+	  			  	<div class="row mt-2">
+	  			  		<div class="col-md-3">
+	  			  			<label>College Name</label>
+	  			  		</div>
+	  			  		<div class="col-md-9">
+	  			  			<label th:text="${users.college}"></label>
+	  			  		</div>
+				  	</div>
+				  	
+				  	<div class="row">
+	  			  		<div class="col-md-3">
+	  			  			<label>University Name</label>
+	  			  		</div>
+	  			  		<div class="col-md-9">
+	  			  			<label th:text="${users.university}"></label>
+	  			  		</div>
+				  	</div>
+				  	
+	  			</div>
+	 		</div>
+		</div>
+		<div class="col-md-2"></div>
+  	</div><br/>
+  	
+  	
+  	   <div class="row">
+   		<div class="col-md-2"></div>
+   		<div class="col-md-8">
+			<div class="card">
+	  			<div class="card-body">
+	  			
+	  			 <h6 style="display:inline;"><b>Education Profile</b></h6>
+	  			  <a class="fa fa-edit float-right"  style="font-size:20px;color:#111;"></a>
+	  				
+	  			</div>
+	 		</div>
+		</div>
+		<div class="col-md-2"></div>
+  	</div>
+  	<br/>
+  	
+  	
+  	
+</div>
+
+<script type="text/javascript">
+	function personal(){
+		document.getElementById("personal2").style.display="block";
+		document.getElementById("personal1").style.display="none";
+		
+	}
+	
+	function percancel(){
+		document.getElementById("personal2").style.display="none";
+		document.getElementById("personal1").style.display="block";
+	}
+</script>
+
+
+     </body>
+     </html>
