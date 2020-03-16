@@ -11,6 +11,8 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.data.annotation.Transient;
 
+
+//TEST COMMIT
 @Entity
 @Table(name="college")
 public class College {
